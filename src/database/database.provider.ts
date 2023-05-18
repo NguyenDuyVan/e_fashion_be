@@ -14,7 +14,8 @@ export const DatabaseProviders = [
         entities: [__dirname + "/../**/**/*.entity{.ts,.js}"],
         synchronize: true
       });
-      return dataSource.initialize();
+      return dataSource.initialize().catch((e) => console.log("asdfasdfsdf", e));
+      // return await dataSource.initialize();
     }
   }
 ];
