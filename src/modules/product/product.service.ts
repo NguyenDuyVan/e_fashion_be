@@ -1,15 +1,13 @@
-import { Injectable, Inject } from "@nestjs/common";
-import { Repository } from "typeorm";
-import { ProductEntity } from "./product.entity";
-
+import { Inject, Injectable } from "@nestjs/common";
+import { Product } from "./product.entity";
+import { BaseService } from "../base.service";
+import { DataSource } from "typeorm";
 @Injectable()
-export class ProductService {
+export class ProductService extends BaseService<Product> {
   constructor(
-    @Inject("PRODUCT_REPOSITORY")
-    private productRepository: Repository<ProductEntity>
-  ) {}
-
-  async findAll(): Promise<ProductEntity[]> {
-    return this.productRepository.find();
+    @Inject("CONNECTION")
+    dataSource: DataSource
+  ) {
+    super(dataSource.getRepository(Product));
   }
 }

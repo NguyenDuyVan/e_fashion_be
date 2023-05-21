@@ -1,11 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn
+} from "typeorm";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { BrandEntity } from "../brand/brand.entity";
+import { Brand } from "../brand";
 
-export class ProductEntity {
+@Entity()
+export class Product {
   @PrimaryGeneratedColumn()
-  @IsNotEmpty()
-  @IsNumber()
   id: number;
 
   @Column()
@@ -18,12 +23,17 @@ export class ProductEntity {
   @IsNumber()
   price: number;
 
-  @Column()
-  @IsNotEmpty()
+  @Column({ default: "" })
   @IsString()
   description: string;
 
-  @Column()
   @IsNotEmpty()
-  brand: BrandEntity;
+  @ManyToOne(() => Brand)
+  @JoinColumn()
+  brandId: Brand;
+
+  // @IsNotEmpty()
+  // @ManyToOne(() => Brand)
+  // @JoinColumn()
+  // brandId: Brand;
 }
