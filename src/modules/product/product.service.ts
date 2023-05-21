@@ -10,4 +10,12 @@ export class ProductService extends BaseService<Product> {
   ) {
     super(dataSource.getRepository(Product));
   }
+
+  async getAll() {
+    return await this.repository.find({
+      relations: {
+        size: true
+      }
+    });
+  }
 }

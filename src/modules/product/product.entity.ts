@@ -3,10 +3,13 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  CreateDateColumn,
+  ManyToMany
 } from "typeorm";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { Brand } from "../brand";
+import { Size } from "../size";
 
 @Entity()
 export class Product {
@@ -29,11 +32,20 @@ export class Product {
 
   @IsNotEmpty()
   @ManyToOne(() => Brand)
-  @JoinColumn()
-  brandId: Brand;
+  brand: Brand;
 
-  // @IsNotEmpty()
-  // @ManyToOne(() => Brand)
-  // @JoinColumn()
-  // brandId: Brand;
+  @IsNotEmpty()
+  @ManyToMany(() => Size)
+  sizes: Size[];
+
+  @Column({ default: "" })
+  @IsString()
+  image: string;
+
+  @Column({ default: "" })
+  @IsString()
+  quality: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
 }

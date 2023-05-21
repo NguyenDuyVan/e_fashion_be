@@ -1,4 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn
+} from "typeorm";
 import { IsNotEmpty, IsString } from "class-validator";
 
 @Entity()
@@ -18,4 +23,7 @@ export class Brand {
   @Column()
   @IsString()
   image: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
 }

@@ -8,8 +8,6 @@ export class BaseService<T> {
   }
 
   async create(payload: T): Promise<T> {
-    console.log(payload);
-
     const res = await this.repository.save(payload);
     return res;
   }
