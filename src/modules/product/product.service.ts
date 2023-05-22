@@ -14,7 +14,8 @@ export class ProductService extends BaseService<Product> {
   async getAll() {
     return await this.repository.find({
       relations: {
-        size: true
+        brand: true,
+        sizes: true
       }
     });
   }

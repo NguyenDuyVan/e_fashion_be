@@ -5,7 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  ManyToMany
+  ManyToMany,
+  JoinTable
 } from "typeorm";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { Brand } from "../brand";
@@ -32,10 +33,22 @@ export class Product {
 
   @IsNotEmpty()
   @ManyToOne(() => Brand)
+  @JoinColumn()
   brand: Brand;
 
   @IsNotEmpty()
   @ManyToMany(() => Size)
+  @JoinTable({
+    name: "product_size",
+    joinColumn: {
+      name: "product",
+      referencedColumnName: "id"
+    },
+    inverseJoinColumn: {
+      name: "size",
+      referencedColumnName: "id"
+    }
+  })
   sizes: Size[];
 
   @Column({ default: "" })
