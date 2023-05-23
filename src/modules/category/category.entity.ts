@@ -9,7 +9,6 @@ import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 @Entity()
 export class Category {
   @PrimaryGeneratedColumn()
-  @IsNotEmpty()
   @IsNumber()
   id: number;
 

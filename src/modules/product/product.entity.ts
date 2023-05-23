@@ -11,6 +11,7 @@ import {
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { Brand } from "../brand";
 import { Size } from "../size";
+import { Category } from "../category";
 
 @Entity()
 export class Product {
@@ -31,7 +32,14 @@ export class Product {
   @IsString()
   description: string;
 
-  @IsNotEmpty()
+  @Column({ default: "" })
+  @IsString()
+  image: string;
+
+  @Column({ default: "" })
+  @IsString()
+  quality: string;
+
   @ManyToOne(() => Brand)
   @JoinColumn()
   brand: Brand;
@@ -51,13 +59,8 @@ export class Product {
   })
   sizes: Size[];
 
-  @Column({ default: "" })
-  @IsString()
-  image: string;
-
-  @Column({ default: "" })
-  @IsString()
-  quality: string;
+  @ManyToOne(() => Category)
+  category: Category;
 
   @CreateDateColumn()
   createdDate: Date;
